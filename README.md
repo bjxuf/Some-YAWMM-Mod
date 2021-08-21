@@ -7,3 +7,8 @@ Changes from the last YAWMM googlecode version:
 -small corrections in how the root path is selected (having no "wad" folder now correctly displays on device root)    
 
 For more info on YAWMM itself, check its [original readme](README_YAWMM.txt).
+
+# This fork includes:
+- Translation to spanish by @bjxuf.
+- wiidrc files.
+- PR [#2](https://github.com/FIX94/Some-YAWMM-Mod/pull/2) by AdmiralCurtiss.
