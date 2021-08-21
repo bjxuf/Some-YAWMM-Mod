@@ -9,6 +9,6 @@ Changes from the last YAWMM googlecode version:
 For more info on YAWMM itself, check its [original readme](README_YAWMM.txt).
 
 # This fork includes:
-- Translation to spanish by @bjxuf.
+- Translation to spanish by [@bjxuf](https://github.com/bjxuf).
 - wiidrc files.
 - PR [#2](https://github.com/FIX94/Some-YAWMM-Mod/pull/2) by AdmiralCurtiss.
