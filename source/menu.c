@@ -24,20 +24,20 @@
 /* FAT device list  */
 //static fatDevice fdevList[] = {
 fatDevice fdevList[] = {
-	{ "sd",		"Wii SD Slot",					&__io_wiisd },
-	{ "usb",	"USB Mass Storage Device",		&__io_usbstorage },
-	{ "usb2",	"USB 2.0 Mass Storage Device",	&__io_wiiums },
-	{ "gcsda",	"SD Gecko (Slot A)",			&__io_gcsda },
-	{ "gcsdb",	"SD Gecko (Slot B)",			&__io_gcsdb },
+	{ "sd",		"Tarjeta SD",					&__io_wiisd },
+	{ "usb",	"Dispositivo USB",		&__io_usbstorage },
+	{ "usb2",	"USB 2.0",	&__io_wiiums },
+	{ "gcsda",	"SD Gecko (A)",			&__io_gcsda },
+	{ "gcsdb",	"SD Gecko (B)",			&__io_gcsdb },
 	//{ "smb",	"SMB share",					NULL },
 };
 
 /* NAND device list */
 //static nandDevice ndevList[] = {
 nandDevice ndevList[] = {
-	{ "Disable",				0,	0x00,	0x00 },
-	{ "SD/SDHC Card",			1,	0xF0,	0xF1 },
-	{ "USB 2.0 Mass Storage Device",	2,	0xF2,	0xF3 },
+	{ "Deshabilitar",				0,	0x00,	0x00 },
+	{ "Tarjeta SD/SDHC",			1,	0xF0,	0xF1 },
+	{ "Dispositivo USB 2.0",		2,	0xF2,	0xF3 },
 };
 
 /* FAT device */
@@ -267,12 +267,12 @@ void Menu_SelectIOS(void)
 			/* Clear console */
 			Con_Clear();
 
-			printf("\t>> Select IOS version to use: < IOS%d >\n\n", iosVersion[selected]);
+			printf("\t>> Selecciona version de IOS a usar: < IOS%d >\n\n", iosVersion[selected]);
 
-			printf("\t   Press LEFT/RIGHT to change IOS version.\n\n");
+			printf("\t   Presiona IZQ/DER para cambiar version de IOS.\n\n");
 
-			printf("\t   Press A button to continue.\n");
-			printf("\t   Press HOME button to restart.\n\n");
+			printf("\t   Presiona A para continuar.\n");
+			printf("\t   Presiona HOME para reiniciar.\n\n");
 
 			u32 buttons = WaitButtons();
 
@@ -333,12 +333,12 @@ void Menu_FatDevice(void)
 			/* Selected device */
 			fdev = &fdevList[selected];
 
-			printf("\t>> Select source device: < %s >\n\n", fdev->name);
+			printf("\t>> Selecciona dispositivo de origen: < %s >\n\n", fdev->name);
 
-			printf("\t   Press LEFT/RIGHT to change the selected device.\n\n");
+			printf("\t   Presiona IZQ/DER para cambiar dispositivo seleccionado.\n\n");
 
-			printf("\t   Press A button to continue.\n");
-			printf("\t   Press HOME button to restart.\n\n");
+			printf("\t   Presiona A para continuar.\n");
+			printf("\t   Presiona HOME para reiniciar.\n\n");
 
 			u32 buttons = WaitButtons();
 
@@ -377,7 +377,7 @@ void Menu_FatDevice(void)
 		fdev = &fdevList[gConfig.fatDeviceIndex];
 	}
 
-	printf("[+] Mounting %s, please wait...", fdev->name );
+	printf("[+] Montando %s. Por favor, espera...", fdev->name );
 	fflush(stdout);
 
 	/* Mount FAT device */
@@ -387,7 +387,7 @@ void Menu_FatDevice(void)
 		printf(" ERROR! (ret = %d)\n", ret);
 		goto err;
 	} else
-		printf(" OK!\n");
+		printf(" LISTO!\n");
 
 	return;
 
@@ -396,7 +396,7 @@ err:
     if(gConfig.fatDeviceIndex >= 0) gConfig.fatDeviceIndex = -1;
 	WiiLightControl (WII_LIGHT_OFF);
 	printf("\n");
-	printf("    Press any button to continue...\n");
+	printf("    Presiona cualquier boton para continuar...\n");
 
 	WaitButtons();
 
@@ -424,12 +424,12 @@ void Menu_NandDevice(void)
 			/* Selected device */
 			ndev = &ndevList[selected];
 
-			printf("\t>> Select NAND emulator device: < %s >\n\n", ndev->name);
+			printf("\t>> Selecciona dispositivo de emulacion NAND: < %s >\n\n", ndev->name);
 
-			printf("\t   Press LEFT/RIGHT to change the selected device.\n\n");
+			printf("\t   Presiona IZQ/DER para cambiar dispositivo seleccionado.\n\n");
 
-			printf("\t   Press A button to continue.\n");
-			printf("\t   Press HOME button to restart.\n\n");
+			printf("\t   Presiona A para continue.\n");
+			printf("\t   Presiona HOME para reiniciar.\n\n");
 
 			u32 buttons = WaitButtons();
 
@@ -461,7 +461,7 @@ void Menu_NandDevice(void)
 	if (!ndev->mode)
 		return;
 
-	printf("[+] Enabling NAND emulator...");
+	printf("[+] Habilitando emulador NAND...");
 	fflush(stdout);
 
 	/* Mount NAND device */
@@ -477,13 +477,13 @@ void Menu_NandDevice(void)
 		printf(" ERROR! (ret = %d)\n", ret);
 		goto err;
 	} else
-		printf(" OK!\n");
+		printf(" LISTO!\n");
 
 	return;
 
 err:
 	printf("\n");
-	printf("    Press any button to continue...\n");
+	printf("    Presiona cualquier boton para continuar...\n");
 
 	WaitButtons();
 
@@ -502,20 +502,20 @@ int Menu_BatchProcessWads(fatFile *files, int fileCount, char *inFilePath, int i
 		Con_Clear();
 
 		if ((installCnt > 0) & (uninstallCnt == 0)) {
-			printf("[+] %d file%s marked for installation.\n", installCnt, (installCnt == 1) ? "" : "s");
-			printf("    Do you want to proceed?\n");
+			printf("[+] %d file%s marcado(s) para instalar.\n", installCnt, (installCnt == 1) ? "" : "s");
+			printf("    ¿Quieres continuar?\n");
 		}
 		else if ((installCnt == 0) & (uninstallCnt > 0)) {
-			printf("[+] %d file%s marked for uninstallation.\n", uninstallCnt, (uninstallCnt == 1) ? "" : "s");
-			printf("    Do you want to proceed?\n");
+			printf("[+] %d file%s marcado(s) para desinstalar.\n", uninstallCnt, (uninstallCnt == 1) ? "" : "s");
+			printf("    ¿Quieres continuar?\n");
 		}
 		else {
-			printf("[+] %d file%s marked for installation and %d file%s for uninstallation.\n", installCnt, (installCnt == 1) ? "" : "s", uninstallCnt, (uninstallCnt == 1) ? "" : "s");
-			printf("    Do you want to proceed?\n");
+			printf("[+] %d file%s marcado(s) para instalar y %d file%s para desinstalar.\n", installCnt, (installCnt == 1) ? "" : "s", uninstallCnt, (uninstallCnt == 1) ? "" : "s");
+			printf("    ¿Quieres continuar?\n");
 		}
 
-		printf("\n\n    Press A to continue.\n");
-		printf("    Press B to go back to the menu.\n\n");
+		printf("\n\n    Presiona A para continuar.\n");
+		printf("    Presiona B para volver al menu.\n\n");
 
 		u32 buttons = WaitButtons();
 
@@ -538,7 +538,7 @@ int Menu_BatchProcessWads(fatFile *files, int fileCount, char *inFilePath, int i
 		if ((thisFile->install == 1) | (thisFile->install == 2)) {
 			int mode = thisFile->install;
 			Con_Clear();
-			printf("[+] Opening \"%s\", please wait...\n\n", thisFile->filename);
+			printf("[+] Abriendo \"%s\". Por favor, espera...\n\n", thisFile->filename);
 
 			sprintf(gTmpFilePath, "%s/%s", inFilePath, thisFile->filename);
 
@@ -549,7 +549,7 @@ int Menu_BatchProcessWads(fatFile *files, int fileCount, char *inFilePath, int i
 				continue;
 				}
 
-			printf("[+] %s WAD, please wait...\n", (mode == 2) ? "Uninstalling" : "Installing");
+			printf("[+] %s WAD. Por favor, espera...\n", (mode == 2) ? "Desinstalando" : "Instalando");
 			if (mode == 2) {
 				ret = Wad_Uninstall(fp);
 			}
@@ -570,13 +570,13 @@ int Menu_BatchProcessWads(fatFile *files, int fileCount, char *inFilePath, int i
 	WiiLightControl (WII_LIGHT_OFF);
 
 	printf("\n");
-	printf("    %d titles succeeded and %d failed...\n", success, errors);
+	printf("    %d titulos fueron exitosos y %d fallaron...\n", success, errors);
 
 	if (errors > 0)
 	{
-		printf("\n    Some operations failed");
-		printf("\n    Press A to list.\n");
-		printf("    Press B skip.\n");
+		printf("\n    Algunas operaciones fallaron");
+		printf("\n    Presiona A para enlistar.\n");
+		printf("    Presiona B para saltar.\n");
 
 		u32 buttons = WaitButtons();
 
@@ -596,14 +596,14 @@ int Menu_BatchProcessWads(fatFile *files, int fileCount, char *inFilePath, int i
 					str[40]=0;
 					i++;
 					if(thisFile->installstate == -999) printf("    %s BRICK BLOCKED\n", str);
-					else if(thisFile->installstate == -998) printf("    %s Skipped\n", str);
-					else if(thisFile->installstate == -106) printf("    %s Not installed?\n", str);
-					else if(thisFile->installstate == -1036 ) printf("    %s Needed IOS missing\n", str);
-					else if(thisFile->installstate == -4100 ) printf("    %s No trucha bug?\n", str);
+					else if(thisFile->installstate == -998) printf("    %s Saltado\n", str);
+					else if(thisFile->installstate == -106) printf("    %s ¿Instalado?\n", str);
+					else if(thisFile->installstate == -1036 ) printf("    %s Falta IOS necesario\n", str);
+					else if(thisFile->installstate == -4100 ) printf("    %s ¿Trucha Bug?\n", str);
 					else printf("    %s error %d\n", str, thisFile->installstate);
 					if( i == 17 )
 					{
-						printf("\n    Press any button to continue\n");
+						printf("\n    Presiona cualquier boton para continuar\n");
 						WaitButtons();
 						i = 0;
 					}
@@ -611,7 +611,7 @@ int Menu_BatchProcessWads(fatFile *files, int fileCount, char *inFilePath, int i
 			}
 		}
 	}
-	printf("\n    Press any button to continue...\n");
+	printf("\n    Presiona cualquier boton para continuar...\n");
 	WaitButtons();
 
 	return 1;
@@ -626,16 +626,16 @@ int Menu_FileOperations(fatFile *file, char *inFilePath)
 	{
 		Con_Clear();
 
-		printf("[+] WAD Filename : %s\n",          file->filename);
-		printf("    WAD Filesize : %.2f MB\n\n\n", filesize);
+		printf("[+] Nombre WAD : %s\n",          file->filename);
+		printf("    Espacio WAD : %.2f MB\n\n\n", filesize);
 
 
-		printf("[+] Select action: < %s WAD >\n\n", "Delete"); //There's yet nothing else than delete
+		printf("[+] Selecciona accion: < %s WAD >\n\n", "Eliminar"); //There's yet nothing else than delete
 
-		printf("    Press LEFT/RIGHT to change selected action.\n\n");
+		printf("    Presiona IZQ/DER para cambiar accion seleccionada.\n\n");
 
-		printf("    Press A to continue.\n");
-		printf("    Press B to go back to the menu.\n\n");
+		printf("    Presiona A para continuar.\n");
+		printf("    Presiona B para volver al menu.\n\n");
 
 		u32 buttons = WaitButtons();
 
@@ -650,17 +650,17 @@ int Menu_FileOperations(fatFile *file, char *inFilePath)
 
 	Con_Clear();
 
-	printf("[+] Deleting \"%s\", please wait...\n", file->filename);
+	printf("[+] Eliminando \"%s\". Por favor, espera...\n", file->filename);
 
 	sprintf(gTmpFilePath, "%s/%s", inFilePath, file->filename);
 	int error = remove(gTmpFilePath);
 	if (error != 0)
 		printf("    ERROR!");
 	else
-		printf("    Successfully deleted!");
+		printf("    Eliminado satisfactoriamente!");
 
 	printf("\n");
-	printf("    Press any button to continue...\n");
+	printf("    Presiona cualquier boton para continuar...\n");
 
 	WaitButtons();
 
@@ -683,16 +683,16 @@ void Menu_WadManage(fatFile *file, char *inFilePath)
 		/* Clear console */
 		Con_Clear();
 
-		printf("[+] WAD Filename : %s\n",          file->filename);
-		printf("    WAD Filesize : %.2f MB\n\n\n", filesize);
+		printf("[+] Nombre WAD : %s\n",          file->filename);
+		printf("    Espacio WAD : %.2f MB\n\n\n", filesize);
 
 
-		printf("[+] Select action: < %s WAD >\n\n", (!mode) ? "Install" : "Uninstall");
+		printf("[+] Selecciona accion: < %s WAD >\n\n", (!mode) ? "Instalar" : "Desinstalar");
 
-		printf("    Press LEFT/RIGHT to change selected action.\n\n");
+		printf("    Presiona IZQ/DER para cambiar accion seleccionada.\n\n");
 
-		printf("    Press A to continue.\n");
-		printf("    Press B to go back to the menu.\n\n");
+		printf("    Presiona A para continuar.\n");
+		printf("    Presiona B para volver al menu.\n\n");
 
 		u32 buttons = WaitButtons();
 
@@ -712,7 +712,7 @@ void Menu_WadManage(fatFile *file, char *inFilePath)
 	/* Clear console */
 	Con_Clear();
 
-	printf("[+] Opening \"%s\", please wait...", file->filename);
+	printf("[+] Abriendo \"%s\". Por favor, espera...", file->filename);
 	fflush(stdout);
 
 	/* Generate filepath */
@@ -725,9 +725,9 @@ void Menu_WadManage(fatFile *file, char *inFilePath)
 		printf(" ERROR!\n");
 		goto out;
 	} else
-		printf(" OK!\n\n");
+		printf(" LISTO!\n\n");
 
-	printf("[+] %s WAD, please wait...\n", (!mode) ? "Installing" : "Uninstalling");
+	printf("[+] %s WAD. Por favor, espera...\n", (!mode) ? "Instalando" : "Desinstalando");
 
 	/* Do install/uninstall */
 	WiiLightControl (WII_LIGHT_ON);
@@ -743,7 +743,7 @@ out:
 		fclose(fp);
 
 	printf("\n");
-	printf("    Press any button to continue...\n");
+	printf("    Presiona cualquier boton para continuar...\n");
 
 	/* Wait for button */
 	WaitButtons();
@@ -766,11 +766,11 @@ void Menu_WadList(void)
     if (tmpPath == NULL)
     {
         ret = -997; // What am I gonna use here?
-		printf(" ERROR! Out of memory (ret = %d)\n", ret);
+		printf(" ERROR! Sin memoria suficiente (ret = %d)\n", ret);
         return;
     }
 
-	printf("[+] Retrieving file list...");
+	printf("[+] Recuperando lista de archivos...");
 	fflush(stdout);
 
 	gDirLevel = 0;
@@ -810,7 +810,7 @@ getList:
 
 	/* No files */
 	if (!fileCnt) {
-		printf(" No files found!\n");
+		printf(" No se encontraron archivos!\n");
 		goto err;
 	}
 
@@ -836,7 +836,7 @@ getList:
 		else
 			index = 0;
 
-		printf("[+] WAD files on [%s]:\n\n", tmpPath+index);
+		printf("[+] Archivos WAD en [%s]:\n\n", tmpPath+index);
 
 		/* Print entries */
 		for (cnt = start; cnt < fileCnt; cnt++)
@@ -862,12 +862,12 @@ getList:
 
 		printf("\n");
 
-		printf("[+] Press A to (un)install.");
+		printf("[+] Presiona A para (des)instalar.");
 		if(gDirLevel>1)
-			printf(" Press B to go up-level DIR.\n");
+			printf(" Presiona B para subir nivel de DIR.\n");
 		else
-			printf(" Press B to select a device.\n");
-		printf("    Use +/X and -/Y to (un)mark. Press 1/Z/ZR for delete menu.");
+			printf(" Presiona B para seleccionar dispositivo.\n");
+		printf("    Usa +/X y -/Y para (des)marcar. Presiona 1/Z/ZR para menu de eliminacion.");
 
 			/** Controls **/
 		u32 buttons = WaitButtons();
@@ -1051,7 +1051,7 @@ getList:
 					}
 					else if (IsListFull () == true)
 					{
-						WaitPrompt ("Maximum number of directory levels is reached.\n");
+						WaitPrompt ("Niveles de directorio maximos alcanzado.\n");
 					}
 					else
 					{
@@ -1134,7 +1134,7 @@ getList:
 
 err:
 	printf("\n");
-	printf("    Press any button to continue...\n");
+	printf("    Presiona cualquier boton para continuar...\n");
 
 	free (tmpPath);
 
@@ -1228,7 +1228,7 @@ char *PeekCurrentDir (void)
 void WaitPrompt (char *prompt)
 {
 	printf("\n%s", prompt);
-	printf("    Press any button to continue...\n");
+	printf("    Presiona cualquier boton para continuar...\n");
 
 	/* Wait for button */
 	WaitButtons();

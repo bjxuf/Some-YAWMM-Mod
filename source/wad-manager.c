@@ -42,10 +42,10 @@ void CheckPassword (void)
 		return;
 
 	// Ask user for a password. Press "B" to restart Wii
-	printf("[+] [Enter Password to Continue]:\n\n");
+	printf("[+] [Escribe clave para continuar]:\n\n");
 
-	printf(">>  Press A to continue.\n");
-	printf(">>  Press B button to restart your Wii.\n");
+	printf(">>  Presiona A para continuar.\n");
+	printf(">>  Presiona B para reiniciar Wii.\n");
 
 	/* Wait for user answer */
 	for (;;) 
@@ -59,16 +59,16 @@ void CheckPassword (void)
 			//if (strcmp (curPassword, PASSWORD) == 0)
 			if (strcmp (curPassword, gConfig.password) == 0)
 			{
-				printf(">>  Password Accepted...\n");
+				printf(">>  Clave aceptada...\n");
 				break;
 			}
 			else
 			{
 				printf ("\n");
-				printf(">>  Incorrect Password. Try again...\n");
-				printf("[+] [Enter Password to Continue]:\n\n");
-				printf(">>  Press A to continue.\n");
-				printf(">>  Press B button to restart your Wii.\n");
+				printf(">>  Clave incorrecta. Intenta otra vez...\n");
+				printf("[+] [Escribe clave para continuar]:\n\n");
+				printf(">>  Presiona A para continuar.\n");
+				printf(">>  Presiona B para reiniciar Wii.\n");
 				count = 0;
 			}
 		}
@@ -118,15 +118,15 @@ void CheckPassword (void)
 void Disclaimer(void)
 {
 	/* Print disclaimer */
-	printf("[+] [DISCLAIMER]:\n\n");
+	printf("[+] [AVISO LEGAL]:\n\n");
 
-	printf("    THIS APPLICATION COMES WITH NO WARRANTY AT ALL,\n");
-	printf("    NEITHER EXPRESS NOR IMPLIED.\n");
-	printf("    I DO NOT TAKE ANY RESPONSIBILITY FOR ANY DAMAGE IN YOUR\n");
-	printf("    WII CONSOLE BECAUSE OF A IMPROPER USAGE OF THIS SOFTWARE.\n\n");
+	printf("    ESTA APLICACION VIENE SIN NINGUNA GARANTIA,\n");
+	printf("    NI EXPRESA NI IMPLICITA.\n");
+	printf("    NO ASUMO NINGUNA RESPONSIBILIDAD POR CUALQUIER PERJUICIO CAUSADO\n");
+	printf("    EN TU CONSOLA WII AL USAR INADECUADAMENTE ESTE SOFTWARE.\n\n");
 
-	printf(">>  If you agree, press A button to continue.\n");
-	printf(">>  Otherwise, press B button to restart your Wii.\n");
+	printf(">>  Si aceptas, presiona A para continuar.\n");
+	printf(">>  De lo contrario, presiona B para reiniciar Wii.\n");
 
 	/* Wait for user answer */
 	for (;;) {
@@ -250,7 +250,7 @@ int ReadConfigFile (char *configFilePath)
 						if (strlen (gConfig.password) > 10)
 						{
 							gConfig.password [0] = 0;
-							printf ("Password longer than 10 characters; will be ignored. Press a button...\n");
+							printf ("Claves con mas de 10 caracteres seran ignoradas. Presiona un boton...\n");
 							WaitButtons ();
 						}
 					}

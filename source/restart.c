@@ -10,7 +10,7 @@
 void Restart(void)
 {
 	Con_Clear ();
-	printf("\n    Restarting Wii...");
+	printf("\n    Reiniciando Wii...");
 	fflush(stdout);
 
 	/* Disable NAND emulator */
@@ -24,7 +24,7 @@ void Restart_Wait(void)
 {
 	printf("\n");
 
-	printf("    Press any button to restart...");
+	printf("    Presiona cualquier boton para reiniciar...");
 	fflush(stdout);
 
 	/* Wait for button */

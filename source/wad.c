@@ -269,7 +269,7 @@ s32 Wad_Install(FILE *fp)
 	int ret;
 	u64 tid;
 
-	printf("\t\t>> Reading WAD data...");
+	printf("\t\t>> Leyendo datos de WAD...");
 	fflush(stdout);
 	
 	ret = __Wad_ReadAlloc(fp, (void *)&header, offset, sizeof(wadHeader));
@@ -283,7 +283,7 @@ s32 Wad_Install(FILE *fp)
 	
 	if (tid == TITLE_ID(1, 1))
 	{
-		printf("\n    I can't let you do that Dave\n");
+		printf("\n    Accion no permitida\n");
 		ret = -999;
 		goto out;
 	}
@@ -326,7 +326,7 @@ s32 Wad_Install(FILE *fp)
 	
 	if(TITLE_LOWER(tmd_data->sys_version) != 0 && isIOSstub(TITLE_LOWER(tmd_data->sys_version)))
 	{
-		printf("\n    This Title wants IOS%li but the installed version\n    is a stub.\n", TITLE_LOWER(tmd_data->sys_version));
+		printf("\n    Este titulo necesita el IOS%li pero la version\n    es un stub.\n", TITLE_LOWER(tmd_data->sys_version));
 		ret = -999;
 		goto err;
 	}
@@ -335,7 +335,7 @@ s32 Wad_Install(FILE *fp)
 	{
 		if ( ( tmd_data->num_contents == 3) && (tmd_data->contents[0].type == 1 && tmd_data->contents[1].type == 0x8001 && tmd_data->contents[2].type == 0x8001) )
 		{
-			printf("\n    I won't install a stub System Menu IOS\n");
+			printf("\n    Instalar un IOS stub para menu de sistema no permitido\n");
 			ret = -999;
 			goto err;
 		}
@@ -345,7 +345,7 @@ s32 Wad_Install(FILE *fp)
 	{
 		if ( ( tmd_data->num_contents == 3) && (tmd_data->contents[0].type == 1 && tmd_data->contents[1].type == 0x8001 && tmd_data->contents[2].type == 0x8001) )
 		{
-			printf("\n    I won't install a stub EULA IOS\n");
+			printf("\n    Instalar un EULA stub no permitido\n");
 			ret = -999;
 			goto err;
 		}
@@ -355,7 +355,7 @@ s32 Wad_Install(FILE *fp)
 	{
 		if ( ( tmd_data->num_contents == 3) && (tmd_data->contents[0].type == 1 && tmd_data->contents[1].type == 0x8001 && tmd_data->contents[2].type == 0x8001) )
 		{
-			printf("\n    I won't install a stub rgsel IOS\n");
+			printf("\n    Instalar rgsel stub no permitido\n");
 			ret = -999;
 			goto err;
 		}
@@ -364,9 +364,9 @@ s32 Wad_Install(FILE *fp)
 	{
 		if ( ( tmd_data->num_contents == 3) && (tmd_data->contents[0].type == 1 && tmd_data->contents[1].type == 0x8001 && tmd_data->contents[2].type == 0x8001) )
 		{
-			printf("\n    Are you sure you wan't to install a stub HBC IOS?\n");
-			printf("\n    Press A to continue.\n");
-			printf("    Press B skip.");
+			printf("\n    ¿Seguro que quieres instalar un stub en el IOS del HBC?\n");
+			printf("\n    Presiona A para continuar.\n");
+			printf("    Presiona B para saltar.");
 		
 			u32 buttons = WaitButtons();
 		
@@ -382,7 +382,7 @@ s32 Wad_Install(FILE *fp)
 	{
 		if(get_sm_region_basic() == 0)
 		{
-			printf("\n    Can't get the SM region\n    Please check the site for updates\n");
+			printf("\n    No se pudo obtener region del sistema\n    Por favor, revisa el sitio para actualizaciones\n");
 			ret = -999;
 			goto err;
 		}
@@ -397,13 +397,13 @@ s32 Wad_Install(FILE *fp)
 		}
 		if(ret -1)
 		{
-			printf("\n    Can't get the SM region\n    Please check the site for updates\n");
+			printf("\n    No se pudo obtener region del sistema\n    Por favor, revisa el sitio para actualizaciones\n");
 			ret = -999;
 			goto err;
 		}
 		if( get_sm_region_basic() != regionlist[i].region)
 		{
-			printf("\n    I won't install the wrong regions SM\n");
+			printf("\n    No se instalara version del menu de sistema incorrecta\n");
 			ret = -999;
 			goto err;
 		}
@@ -411,7 +411,7 @@ s32 Wad_Install(FILE *fp)
 		{
 			if(boot2version == 4)
 			{
-				printf("\n    This version of the System Menu\n    is not compatible with your Wii\n");
+				printf("\n    Esta version del menu de sistema\n    no es compatible con tu Wii\n");
 				ret = -999;
 				goto err;
 			}
@@ -421,7 +421,7 @@ s32 Wad_Install(FILE *fp)
 	/* Fix ticket */
 	__Wad_FixTicket(p_tik);
 
-	printf("\t\t>> Installing ticket...");
+	printf("\t\t>> Instalando ticket...");
 	fflush(stdout);
 
 	/* Install ticket */
@@ -431,7 +431,7 @@ s32 Wad_Install(FILE *fp)
 
 	Con_ClearLine();
 
-	printf("\r\t\t>> Installing title...");
+	printf("\r\t\t>> Instalando titulo...");
 	fflush(stdout);
 
 	/* Install title */
@@ -448,7 +448,7 @@ s32 Wad_Install(FILE *fp)
 
 		Con_ClearLine();
 
-		printf("\r\t\t>> Installing content #%02ld...", content->cid);
+		printf("\r\t\t>> Instalando contenido #%02ld...", content->cid);
 		fflush(stdout);
 
 		/* Encrypted content size */
@@ -493,13 +493,13 @@ s32 Wad_Install(FILE *fp)
 
 	Con_ClearLine();
 
-	printf("\r\t\t>> Finishing installation...");
+	printf("\r\t\t>> Terminando instalacion...");
 	fflush(stdout);
 
 	/* Finish title install */
 	ret = ES_AddTitleFinish();
 	if (ret >= 0) {
-		printf(" OK!\n");
+		printf(" LISTO!\n");
 		goto out;
 	}
 
@@ -534,7 +534,7 @@ s32 Wad_Uninstall(FILE *fp)
 	u32 viewCnt;
 	int ret;
 
-	printf("\t\t>> Reading WAD data...");
+	printf("\t\t>> Leyendo datos de WAD...");
 	fflush(stdout);
 
 	/* WAD header */
@@ -553,33 +553,33 @@ s32 Wad_Uninstall(FILE *fp)
 	//Assorted Checks
 	if (TITLE_UPPER(tid) == 1 && get_title_ios(TITLE_ID(1, 2)) == 0)
 	{
-		printf("\n    I can't determine the System Menus IOS\nDeleting system titles is disabled\n");
+		printf("\n    Imposible determinar IOS del menu de sistema\nEliminacion de titulos del sistema deshabilitada\n");
 		ret = -999;
 		goto out;
 	}
 	if (tid == TITLE_ID(1, 1))
 	{
-		printf("\n    I won't try to uninstall boot2\n");
+		printf("\n    No se desinstalara boot2\n");
 		ret = -999;
 		goto out;
 	}
 	if (tid == TITLE_ID(1, 2))
 	{
-		printf("\n    I won't uninstall the System Menu\n");
+		printf("\n    No se desinstalara el menu de sistema\n");
 		ret = -999;
 		goto out;
 	}
 	if(get_title_ios(TITLE_ID(1, 2)) == tid)
 	{
-		printf("\n    I won't uninstall the System Menus IOS\n");
+		printf("\n    No se desinstalara IOS del menu de sistema\n");
 		ret = -999;
 		goto out;
 	}
 	if (tid == get_title_ios(TITLE_ID(0x10001, 0x48415858)) || tid == get_title_ios(TITLE_ID(0x10001, 0x4A4F4449)))
 	{
-		printf("\n    This is the HBCs IOS, uninstalling will break the HBC!\n");
-		printf("\n    Press A to continue.\n");
-		printf("    Press B skip.");
+		printf("\n    Este IOS es usado por el HBC, desinstalarlo impedira su uso!\n");
+		printf("\n    Presiona A para continuar.\n");
+		printf("    Presiona B para saltar.");
 		
 		u32 buttons = WaitButtons();
 		
@@ -592,38 +592,38 @@ s32 Wad_Uninstall(FILE *fp)
 	if((tid  == TITLE_ID(0x10008, 0x48414B00 | 'E') || tid  == TITLE_ID(0x10008, 0x48414B00 | 'P') || tid  == TITLE_ID(0x10008, 0x48414B00 | 'J') || tid  == TITLE_ID(0x10008, 0x48414B00 | 'K') 
 		|| (tid  == TITLE_ID(0x10008, 0x48414C00 | 'E') || tid  == TITLE_ID(0x10008, 0x48414C00 | 'P') || tid  == TITLE_ID(0x10008, 0x48414C00 | 'J') || tid  == TITLE_ID(0x10008, 0x48414C00 | 'K'))) && get_sm_region_basic() == 0)
 	{
-		printf("\n    Can't get the SM region\n    Please check the site for updates\n");
+		printf("\n    No se pudo obtener region del sistema\n    Por favor, revisa el sitio para actualizaciones");
 		ret = -999;
 		goto out;
 	}
 	if(tid  == TITLE_ID(0x10008, 0x48414B00 | get_sm_region_basic()))
 	{
-		printf("\n    I won't uninstall the EULA\n");
+		printf("\n    No se desinstalara EULA\n");
 		ret = -999;
 		goto out;
 	}	
 	if(tid  == TITLE_ID(0x10008, 0x48414C00 | get_sm_region_basic()))
 	{
-		printf("\n    I won't uninstall rgsel\n");
+		printf("\n    No se desinstalara rgsel\n");
 		ret = -999;
 		goto out;
 	}	
 	if(tid  == get_title_ios(TITLE_ID(0x10008, 0x48414B00 | get_sm_region_basic())))
 	{
-		printf("\n    I won't uninstall the EULAs IOS\n");
+		printf("\n    No se desinstalara IOS del EULA\n");
 		ret = -999;
 		goto out;
 	}	
 	if(tid  == get_title_ios(TITLE_ID(0x10008, 0x48414C00 | get_sm_region_basic())))
 	{
-		printf("\n    I won't uninstall the rgsel IOS\n");
+		printf("\n    No se desinstalara IOS de rgsel\n");
 		ret = -999;
 		goto out;
 	}
 
 	Con_ClearLine();
 
-	printf("\t\t>> Deleting tickets...");
+	printf("\t\t>> Eliminando tickets...");
 	fflush(stdout);
 
 	/* Get ticket views */
@@ -645,10 +645,10 @@ s32 Wad_Uninstall(FILE *fp)
 		if (ret < 0)
 			printf(" ERROR! (ret = %d\n", ret);
 		else
-			printf(" OK!\n");
+			printf(" LISTO!\n");
 	}
 
-	printf("\t\t>> Deleting title contents...");
+	printf("\t\t>> Eliminando contenido del titulo...");
 	fflush(stdout);
 
 	/* Delete title contents */
@@ -656,10 +656,10 @@ s32 Wad_Uninstall(FILE *fp)
 	if (ret < 0)
 		printf(" ERROR! (ret = %d)\n", ret);
 	else
-		printf(" OK!\n");
+		printf(" LISTO!\n");
 
 
-	printf("\t\t>> Deleting title...");
+	printf("\t\t>> Eliminando titulo...");
 	fflush(stdout);
 
 	/* Delete title */
@@ -667,7 +667,7 @@ s32 Wad_Uninstall(FILE *fp)
 	if (ret < 0)
 		printf(" ERROR! (ret = %d)\n", ret);
 	else
-		printf(" OK!\n");
+		printf(" LISTO!\n");
 
 out:
 	/* Free memory */
